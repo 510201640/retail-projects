@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+    <!-- 本地数据库驱动程序jar包的全路径 -->
+    <classPathEntry location="C:\\Users\\cc\\.m2\\repository\\mysql\\mysql-connector-java\\5.1.46\\mysql-connector-java-5.1.46.jar"/>
+
+
+
+    <context id="context" targetRuntime="MyBatis3">
+        <!--去掉注解的配置-->
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true" />
+        </commentGenerator>
+
+        <!-- 数据库的相关配置 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://127.0.0.1:3306/test" userId="root" password="root"/>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- 实体类生成的位置 -->
+        <javaModelGenerator targetPackage="com.jiang.redis.entity" targetProject="F:\retail-projects\redis-demo\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- *Mapper.xml 文件的位置 -->
+        <sqlMapGenerator targetPackage="com.jiang.redis.mapper.xml" targetProject="F:\retail-projects\redis-demo\src\main\java">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- Mapper 接口文件的位置 -->
+        <javaClientGenerator targetPackage="com.jiang.redis.mapper" targetProject="F:\retail-projects\redis-demo\src\main\java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 相关表的配置 -->
+        <table tableName="users" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+        <table tableName="user_roles" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+        <table tableName="roles" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+        <table tableName="roles_permissions" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+        <table tableName="permission" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               enableUpdateByExample="false"/>
+    </context>
+</generatorConfiguration>

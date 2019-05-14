@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiang.redis.mapper.UserRolesMapper">
+  <resultMap id="BaseResultMap" type="com.jiang.redis.entity.UserRolesKey">
+    <id column="userid" jdbcType="BIGINT" property="userid" />
+    <id column="roleid" jdbcType="BIGINT" property="roleid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.jiang.redis.entity.UserRolesKey">
+    delete from user_roles
+    where userid = #{userid,jdbcType=BIGINT}
+      and roleid = #{roleid,jdbcType=BIGINT}
+  </delete>
+  <select id="getRolesByUserid" resultType="com.jiang.redis.entity.Roles" parameterType="java.lang.Integer">
+    select a.id,a.rolename,a.createtime from  roles as a  RIGHT JOIN ( select * from user_roles where userid=#{userid})as b on a.id=b.roleid
+
+
+  </select>
+  <insert id="insert" parameterType="com.jiang.redis.entity.UserRolesKey">
+    insert into user_roles (userid, roleid)
+    values (#{userid,jdbcType=BIGINT}, #{roleid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiang.redis.entity.UserRolesKey">
+    insert into user_roles
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="roleid != null">
+        roleid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userid != null">
+        #{userid,jdbcType=BIGINT},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

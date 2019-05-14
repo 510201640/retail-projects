@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiang.redis.mapper.RolesMapper">
+  <resultMap id="BaseResultMap" type="com.jiang.redis.entity.Roles">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="rolename" jdbcType="VARCHAR" property="rolename" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, rolename, createtime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from roles
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from roles
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.jiang.redis.entity.Roles">
+    insert into roles (id, rolename, createtime
+      )
+    values (#{id,jdbcType=BIGINT}, #{rolename,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiang.redis.entity.Roles">
+    insert into roles
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="rolename != null">
+        rolename,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="rolename != null">
+        #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jiang.redis.entity.Roles">
+    update roles
+    <set>
+      <if test="rolename != null">
+        rolename = #{rolename,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jiang.redis.entity.Roles">
+    update roles
+    set rolename = #{rolename,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

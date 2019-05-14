@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jiang.redis.mapper.RolesPermissionsMapper">
+  <resultMap id="BaseResultMap" type="com.jiang.redis.entity.RolesPermissionsKey">
+    <id column="roleid" jdbcType="BIGINT" property="roleid" />
+    <id column="permissionid" jdbcType="BIGINT" property="permissionid" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.jiang.redis.entity.RolesPermissionsKey">
+    delete from roles_permissions
+    where roleid = #{roleid,jdbcType=BIGINT}
+      and permissionid = #{permissionid,jdbcType=BIGINT}
+  </delete>
+    <select id="getPermissionByRoleid" resultType="com.jiang.redis.entity.Permission">
+
+      select a.id,a.permissionname,a.createtime from  permission as a  RIGHT JOIN ( select * from roles_permissions where roleid=#{roleid})as b on a.id=b.permissionid
+    </select>
+    <insert id="insert" parameterType="com.jiang.redis.entity.RolesPermissionsKey">
+    insert into roles_permissions (roleid, permissionid)
+    values (#{roleid,jdbcType=BIGINT}, #{permissionid,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jiang.redis.entity.RolesPermissionsKey">
+    insert into roles_permissions
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        roleid,
+      </if>
+      <if test="permissionid != null">
+        permissionid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="roleid != null">
+        #{roleid,jdbcType=BIGINT},
+      </if>
+      <if test="permissionid != null">
+        #{permissionid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>
